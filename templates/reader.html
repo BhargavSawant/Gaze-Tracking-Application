@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="navbar">
+    <div class="nav-brand">
+        <i class="fas fa-eye"></i>
+        <span>Eye Tracking Reader</span>
+    </div>
+    <div class="nav-links">
+        <a href="{{ url_for('dashboard') }}" class="nav-link">
+            <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a href="{{ url_for('reader') }}" class="nav-link active">
+            <i class="fas fa-book-reader"></i> Reader
+        </a>
+        <a href="{{ url_for('logout') }}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</nav>
+
+<div class="reader-container">
+    <div class="reader-controls">
+        <div class="upload-section">
+            <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.gif,.txt,.doc,.docx" style="display: none;">
+            <button id="uploadBtn" class="btn btn-primary">
+                <i class="fas fa-upload"></i> Upload Document
+            </button>
+            <span id="fileName">No file selected</span>
+        </div>
+        
+        <div class="language-section">
+            <label for="languageSelect"><i class="fas fa-language"></i> Output Language:</label>
+            <select id="languageSelect" class="form-select">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="it">Italian</option>
+                <option value="hi">Hindi</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="kn">Kannada</option>
+                <option value="ml">Malayalam</option>
+            </select>
+        </div>
+        
+        <div class="eye-tracking-section">
+            <button id="startTracking" class="btn btn-success" disabled>
+                <i class="fas fa-play"></i> Start Eye Tracking
+            </button>
+            <button id="stopTracking" class="btn btn-danger" disabled>
+                <i class="fas fa-stop"></i> Stop Eye Tracking
+            </button>
+        </div>
+    </div>
+    
+    <div class="reader-content">
+        <div class="document-display">
+            <div id="imageContainer">
+                <img id="displayedImage" src="" alt="Uploaded document" style="display: none; max-width: 100%; max-height: 70vh; border: 2px solid #ff6b35;">
+                <div id="noFileMessage">
+                    <i class="fas fa-file-upload fa-5x"></i>
+                    <h3>Upload a document to start reading</h3>
+                    <p>Supported formats: PDF, JPG, PNG, GIF, TXT, DOC, DOCX</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-output">
+            <div class="output-section">
+                <h4><i class="fas fa-text-width"></i> Detected Text</h4>
+                <div class="text-info">
+                    <small>Text detected from your gaze position:</small>
+                </div>
+                <div id="extractedText" class="text-box">
+                    <div class="placeholder-text">
+                        <i class="fas fa-eye"></i>
+                        <p>No text detected yet. Look at text in the document and the system will automatically detect it.</p>
+                    </div>
+                </div>
+                <div class="text-actions">
+                    <button id="copyText" class="btn btn-secondary btn-small">
+                        <i class="fas fa-copy"></i> Copy Text
+                    </button>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <h4><i class="fas fa-language"></i> Translated Text</h4>
+                <div id="translatedText" class="text-box">
+                    <div class="placeholder-text">
+                        <i class="fas fa-language"></i>
+                        <p>Translated text will appear here automatically when text is detected.</p>
+                    </div>
+                </div>
+                <div class="audio-controls">
+                    <button id="playAudio" class="btn btn-primary" disabled>
+                        <i class="fas fa-volume-up"></i> Play Audio
+                    </button>
+                    <button id="stopAudio" class="btn btn-secondary" disabled>
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                </div>
+            </div>
+
+            <div class="gaze-info">
+                <h4><i class="fas fa-eye"></i> Gaze Information</h4>
+                <div class="gaze-data">
+                    <div>Status: <span id="trackingStatus">Not Active</span></div>
+                    <div>Position: <span id="gazePosition">X: 0, Y: 0</span></div>
+                    <div>Detection: <span id="detectionStatus">Ready</span></div>
+                    <div class="instructions">
+                        <p><strong>How to use:</strong></p>
+                        <ul>
+                            <li>Upload a document first</li>
+                            <li>Start eye tracking (allow camera permissions)</li>
+                            <li>Look at the text you want to read for 2 seconds</li>
+                            <li>OR double-blink to instantly select text</li>
+                            <li>Detected text will appear automatically and be read aloud</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
