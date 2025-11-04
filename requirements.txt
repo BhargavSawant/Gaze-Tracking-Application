@@ -1,0 +1,12 @@
+Flask==3.0.0
+Werkzeug==3.0.1
+opencv-python==4.8.1.78
+pygame==2.5.2
+numpy>=1.26.0
+gTTS==2.4.0
+google-generativeai==0.3.1
+googletrans==4.0.0rc1
+Pillow==10.1.0
+PyMuPDF==1.23.8
+mediapipe==0.10.8
+PyAutoGUI==0.9.54
